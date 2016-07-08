@@ -114,30 +114,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC FILE CONFIGURATION
-# -----------------------------------------------------------------------------
-
-import environ
-ROOT_DIR = environ.Path(__file__) - 2
-APPS_DIR = ROOT_DIR.path('search_word')
-
-# Absolute path to the directory static files should be collected to.
-# Example: "/var/www/example.com/static/"
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR.path('.staticfiles'))
-
-# URL that handles the static files served from STATIC_ROOT.
-# Example: "http://example.com/static/", "http://static.example.com/"
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-
-# A list of locations of additional static files
-STATICFILES_DIRS = (
-    str(APPS_DIR.path('static')),
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
