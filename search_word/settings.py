@@ -54,7 +54,7 @@ ROOT_URLCONF = 'search_word.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +73,8 @@ WSGI_APPLICATION = 'search_word.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default':  {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'PORT': None, 'USER': 'dev', 'NAME': 'scrape', 'ATOMIC_REQUESTS': True, 'PASSWORD': 'password', 'HOST': 'localhost'},
+    'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'PORT': None, 'USER': 'dev', 'NAME': 'scrape',
+                'ATOMIC_REQUESTS': True, 'PASSWORD': 'password', 'HOST': 'localhost'},
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 

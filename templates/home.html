@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Crawler</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+<H1> <a href="https://www.livingsocial.com/cities/15-san-francisco">Living Social (https://www.livingsocial.com/cities/15-san-francisco)</a>
+</H1>
+<form action="/find_deal"  id="searchForm">
+    <input type="text" name="s" placeholder="Search..." />
+    <input type="submit" value="Search" id="load_more"  />
+</form>
+<div id="result"></div>
+
+<div class="tweets">
+    <ul class="list-unstyled">
+    </ul>
+</div>
+
+ <!--<table class="deal_table" style="width:100%">-->
+  <!--<tr>-->
+    <!--<th>Title</th>-->
+    <!--<th>Link</th>-->
+    <!--<th>location</th>-->
+  <!--</tr>-->
+</table>
+</body>
+<script>
+    $("#searchForm").submit(function(event) {
+     /* stop form from submitting normally */
+    event.preventDefault();
+    var $form = $(this),
+        text = $form.find('input[name="s"]').val(),
+        url = $form.attr('action');
+    console.log(text);
+    var posting = $.get(url, {
+                    text: text
+    });
+
+    /* Put the results in a div */
+    posting.done(function(data) {
+        data = $.parseJSON(data);
+        console.log(data.length);
+        console.log(data);
+        $('.tweets ul').empty();
+        for (var i = 0; i < data.length; i++) {
+        console.log(data[i]["title"])
+        var title = data[i]["title"];
+        <!--$("#result").append(title);-->
+        var html = '';
+        <!--html = '<th>' +  data[i]["title"] + '</th>';-->
+
+        html = html +'<li>' + '<div class="tweet-header"> ' +
+            '<a href="' +data[i]["link"] + '">' +data[i]["title"] + '</a>' +
+        '</div></li>';
+        <!--html = html +'<li>' + '<div class="tweet-header"> ' +-->
+            <!--data[i]["title"]-->
+        <!--'</div></li>';-->
+        $('.tweets ul').append(html);
+        <!--$('.deal_table tr').append(html);-->
+        }
+    });
+
+    <!--$('#load_more').click(function(){-->
+        <!--&lt;!&ndash;console.log('asdfasdf');&ndash;&gt;-->
+        <!--alert("battle_track 1 Pressed");-->
+        <!--// Twitter feed-->
+         <!--$.ajax({-->
+              <!--url: '/find_deal',-->
+              <!--type: 'GET',-->
+              <!--datatype:'json',-->
+
+              <!--data:{-->
+                  <!--text: text,-->
+              <!--},-->
+              <!--success: function(data) {-->
+                   <!--data = $.parseJSON(data);-->
+                   <!--console.log(data.length, load_val);-->
+                   <!--if(load_val <= data.length){-->
+
+                       <!--if(load_val>data.length){-->
+                            <!--load_val = data.length;-->
+                       <!--}-->
+                       <!--else{-->
+                       <!--load_val = load_val + 2;-->
+                       <!--}-->
+
+                       <!--$('.tweets ul').empty();-->
+                       <!--&lt;!&ndash;console.log(data.length, load_val);&ndash;&gt;-->
+                       <!--for (var i = 0; i < data.length; i++) {-->
+                            <!--var html = '';-->
+                            <!--html = html +'<li>' + '<div class="tweet-header"> <a class="fa fa-twitter tweet-icon"  target="_blank"  href="https://www.twitter.com" ></a>' +-->
+                            <!--'<span class="tweet-time">'+ data[i]["time"] +'</span> </div>' +-->
+                            <!--'<div class="tweet-content"> <h3 class="heading"> <a  target="_blank" href="' + data[i]["status_link"] +'">' + data[i]['tweet'] + '</a>' +-->
+                            <!--'<a  target="_blank" href="'+ data[i]["hashtag_link"] +'">'+-->
+                            <!--'<span class="type"> #' + data[i]["hashtag"] + '</span></a></h3></div>'+-->
+                            <!--'<div class="tweet-footer clearfix"><div class="user">' +-->
+                            <!--'<a  target="_blank" href="' + data[i]["profile_image_url_https"] + '">' +-->
+                            <!--'<img src=' + data[i]["profile_image_url_https"] + ' alt="Twitter User"/> </a>' +-->
+                            <!--'<a  target="_blank" href="https://twitter.com/'+ data[i]["username"]  + '">' +-->
+                            <!--'<h4>' + data[i]["username"] + ', ' + data[i]["location"] + '</h4></a></div></div></li>';-->
+                            <!--$('.tweets ul').append(html);-->
+                       <!--}-->
+                   <!--}-->
+                   <!--else{-->
+                        <!--$('.show-loader').html('No More Tweets!!! Please Try later');-->
+                        <!--setTimeout(function(){$('.show-loader').html('LOAD MORE');}, 3000);-->
+                   <!--}-->
+                   <!--$('.show-loader').show();-->
+                   <!--$('.loading-tweet').hide();-->
+              <!--},-->
+              <!--error: function(data){-->
+                   <!--$('.show-loader').show();-->
+                   <!--$('.loading-tweet').hide();-->
+              <!--}-->
+        <!--});-->
+    });
+
+</script>
+</html>

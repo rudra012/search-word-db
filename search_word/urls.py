@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from demo.views import home, find_deal
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', home, name="home"),
+    url(r'^find_deal$', find_deal, name="find_deal"),
 ]
